@@ -1,0 +1,11 @@
+[theme]
+primaryColor="#006400"  # Verde scuro
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F2F6"
+textColor="#31333F"
+font = "sans serif"
+
+[theme.custom]
+base = "light"
+primaryColor = "#006400"  # Verde scuro
+secondaryColor = "#008000"  # Verde
