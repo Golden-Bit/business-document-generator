@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferma Ordine - {company_name}</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }}
+        .container {{
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }}
+        .header {{
+            border-bottom: 2px solid #ffa500;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }}
+        .header img {{
+            height: 50px;
+            margin-right: 20px;
+        }}
+        .header h1 {{
+            color: #ffa500;
+            margin: 0;
+        }}
+        .company-details, .client-details, .invoice-details, .shipping-details, .payment-details, .destination-details {{
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }}
+        .company-details p, .client-details p, .invoice-details p, .shipping-details p, .payment-details p, .destination-details p {{
+            margin: 5px 0;
+        }}
+        .section-title {{
+            background-color: #ffa500;
+            color: #fff;
+            padding: 5px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }}
+        .items, .totals {{
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }}
+        .items th, .items td, .totals th, .totals td {{
+            border: 1px solid #ddd;
+            padding: 8px;
+        }}
+        .items th {{
+            background-color: #ffa500;
+            color: #fff;
+        }}
+        .items tr:nth-child(even) {{
+            background-color: #f9f9f9;
+        }}
+        .items img {{
+            max-width: 100px;
+            height: auto;
+        }}
+        .totals td {{
+            text-align: right;
+        }}
+        .totals td.label {{
+            text-align: left;
+            background-color: #f4f4f4;
+        }}
+        .totals .shipping-costs {{
+            font-weight: bold;
+        }}
+        .note, .terms {{
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }}
+        .note p, .terms p {{
+            margin: 0;
+        }}
+        .footer {{
+            font-size: 0.9em;
+            color: #555;
+            border-top: 2px solid #ffa500;
+            padding-top: 10px;
+            text-align: center;
+            margin-top: 40px;  /* Spazio aggiuntivo */
+        }}
+        .footer p {{
+            margin: 5px 0;
+        }}
+        .signature-container {{
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }}
+        .signature {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }}
+        .signature p {{
+            margin: 0;
+        }}
+        .signature .checkbox {{
+            display: inline-block;
+            margin-right: 10px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{logo_url}" alt="Logo Azienda">
+            <h1>Conferma Ordine - {company_name}</h1>
+        </div>
+
+        <div class="company-details">
+            <p><strong>Azienda:</strong> {company_name}</p>
+            <p><strong>Sede legale:</strong> {company_address}</p>
+            <p><strong>E-mail assistenza:</strong> {company_email}</p>
+            <p><strong>E-mail certificata (PEC):</strong> {company_pec}</p>
+            <p><strong>Recapito telefonico:</strong> {company_phone}</p>
+            <p><strong>P.IVA:</strong> {company_vat}</p>
+        </div>
+
+        <div class="section-title">Dettagli della Conferma Ordine</div>
+        <div class="invoice-details">
+            <p><strong>Numero Conferma Ordine:</strong> {quote_number}</p>
+            <p><strong>Data:</strong> {quote_date}</p>
+            <p><strong>Valido fino a:</strong> {quote_validity}</p>
+        </div>
+
+        <div class="section-title">Dettagli del Cliente</div>
+        <div class="client-details">
+            <p><strong>Destinatario:</strong> {client_name}</p>
+            <p><strong>Indirizzo:</strong> {client_address}</p>
+            <p><strong>Codice Fiscale:</strong> {client_tax_code}</p>
+            <p><strong>P.IVA:</strong> {client_vat}</p>
+        </div>
+
+        <div class="section-title">Destinazione</div>
+        <div class="destination-details">
+            <p><strong>Indirizzo di Spedizione:</strong> {destination_address}</p>
+            <p><strong>Contatto:</strong> {destination_contact}</p>
+            <p><strong>Telefono:</strong> {destination_phone}</p>
+            <p><strong>Email:</strong> {destination_email}</p>
+        </div>
+
+        <div class="section-title">Prodotti</div>
+        <table class="items">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Prodotto</th>
+                    <th>Codice</th>
+                    <th>Quantità</th>
+                    <th>Prezzo Unitario (€)</th>
+                    <th>Importo (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {product_rows}
+            </tbody>
+        </table>
+
+        <div class="section-title">Riepilogo Totale</div>
+        <table class="totals">
+            <tr>
+                <td class="label"><strong>Totale Imponibile:</strong></td>
+                <td>{total_before_tax} €</td>
+            </tr>
+            <tr>
+                <td class="label"><strong>Costi di Spedizione:</strong></td>
+                <td>{shipping_cost} €</td>
+            </tr>
+            <tr>
+                <td class="label"><strong>IVA {iva}%:</strong></td>
+                <td>{tax} €</td>
+            </tr>
+            <tr>
+                <td class="label"><strong>Totale Complessivo:</strong></td>
+                <td>{total_cost} €</td>
+            </tr>
+        </table>
+
+        <div class="section-title">Informazioni di Pagamento</div>
+        <div class="payment-details">
+            <p><strong>Modalità di Pagamento:</strong> {payment_mode}</p>
+            <p><strong>IBAN:</strong> {iban}</p>
+            <p><strong>Termini di Pagamento:</strong> {payment_terms}</p>
+        </div>
+
+        <div class="section-title">Spedizione e Consegna</div>
+        <div class="shipping-details">
+            <p><strong>Condizioni di Spedizione:</strong> {shipping_conditions}</p>
+            <p><strong>Costi di Spedizione:</strong> {shipping_costs}</p>
+        </div>
+
+        <div class="section-title">Note e Termini e Condizioni</div>
+        <div class="signature-container">
+            <div class="note">
+                <p><strong>Note:</strong> {note} </p>
+            </div>
+            <div class="terms">
+                <p><strong>Termini e Condizioni:</strong> {terms_and_conditions} </p>
+            </div>
+            <div class="signature">
+                <p><input type="checkbox" class="checkbox"> Accetto i Termini e Condizioni</p>
+                <p><strong>Firma del Cliente:</strong> __________________________</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>{company_name} | {company_address}</p>
+            <p>Tel. {company_phone} | Email: {company_email} | Pec: {company_pec}</p>
+            <p>P.IVA {company_vat} | IBAN: {iban}</p>
+        </div>
+    </div>
+</body>
+</html>
