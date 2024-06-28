@@ -35,7 +35,7 @@ def generate_quote_html(template_path, output_path, company_info, quote_details,
 
     # tax = (total_before_tax + float(quote_details['shipping_cost'])) * (iva / 100)
     tax = total_before_tax * (iva / 100) + float(quote_details['shipping_cost']) * 0.22
-    total_cost = total_before_tax + tax
+    total_cost = total_before_tax + float(quote_details['shipping_cost']) + tax
 
     # Funzione per rimuovere paragrafi vuoti
     def remove_empty_paragraphs(text, **kwargs):
